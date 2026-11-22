@@ -22,13 +22,13 @@ function inquiry_field(string $key, int $maxLength): string
 }
 
 $name = inquiry_field('name', 120);
-$email = trim((string)($_POST['email'] ?? ''));
+$email = inquiry_field('email', 254);
 $business = inquiry_field('business', 160);
 $service = inquiry_field('service', 120);
 $country = inquiry_field('country', 120);
 $budget = inquiry_field('budget', 120);
-$details = trim((string)($_POST['details'] ?? ''));
-$details = substr($details, 0, 5000);
+$detailsValue = $_POST['details'] ?? '';
+$details = is_string($detailsValue) ? trim(substr($detailsValue, 0, 5000)) : '';
 $honeypot = inquiry_field('website', 200);
 
 if ($honeypot !== '') {
@@ -46,9 +46,7 @@ if (
 }
 
 $recipient = 'promadeb55@gmail.com';
-$host = isset($_SERVER['HTTP_HOST'])
-    ? preg_replace('/[^a-zA-Z0-9.-]/', '', (string)$_SERVER['HTTP_HOST'])
-    : 'debcreatives.net';
+$sender = 'website@debcreatives.net';
 
 $subject = 'New Deb Creatives project inquiry';
 $message = implode("\n", [
@@ -68,10 +66,11 @@ $message = implode("\n", [
 $headers = implode("\r\n", [
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8',
-    'From: Deb Creatives Website <website@' . $host . '>',
+    'From: Deb Creatives Website <' . $sender . '>',
     'Reply-To: ' . $email,
     'X-Mailer: PHP/' . phpversion(),
 ]);
 
-$sent = @mail($recipient, $subject, $message, $headers);
+// Align the envelope sender with debcreatives.net so its SPF record is checked.
+$sent = @mail($recipient, $subject, $message, $headers, '-f' . $sender);
 inquiry_redirect($sent ? 'sent' : 'failed');
