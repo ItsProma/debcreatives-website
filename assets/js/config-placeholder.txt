@@ -1,0 +1,1 @@
+Set window.DEB_CREATIVES_CONFIG.contactEmail in config.js to the real project inquiry inbox before launch.
