@@ -35,7 +35,17 @@
       failed: 'We could not send your inquiry just now. Please try again later.',
       invalid: 'Please check the required fields and try again.'
     };
-    if (status && messages[result]) {
+    if (result === 'sent') {
+      form.innerHTML = `
+        <section class="inquiry-success" role="status" aria-live="polite">
+          <span class="success-mark" aria-hidden="true">✓</span>
+          <div class="kicker">Project inquiry received</div>
+          <h2>Thank you!</h2>
+          <p>Your inquiry has been sent successfully. We’ll review your project details and reply to your email soon.</p>
+        </section>
+      `;
+      form.classList.add('is-submitted');
+    } else if (status && messages[result]) {
       status.textContent = messages[result];
     }
   }
