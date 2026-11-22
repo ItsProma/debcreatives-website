@@ -1,6 +1,6 @@
 # Deb Creatives website
 
-A responsive, five-page static website starter for Deb Creatives. The site is in English and uses the cream, black, olive-green, and small coral-accent palette selected from the reference screenshot.
+A responsive, five-page website for Deb Creatives. The site is in English and uses the cream, black, olive-green, and small coral-accent palette selected from the reference screenshot.
 
 ## Pages
 
@@ -9,17 +9,20 @@ A responsive, five-page static website starter for Deb Creatives. The site is in
 - `services.html` — Service details
 - `studio.html` — Studio introduction
 - `contact.html` — Project inquiry form
+- `send-inquiry.php` — Server-side inquiry email handler
+
+## Contact form
+
+The form sends project inquiries to the studio inbox using PHP's `mail()`. It includes server-side field validation and a honeypot field for basic spam filtering. The visitor's email is set as Reply-To.
+
+The hosting account must allow PHP mail delivery. Send a test inquiry after uploading the PHP file and check the inbox and spam folder.
 
 ## Before publishing
 
-1. Open `assets/js/config.js`.
-2. Set `contactEmail` to the real project inquiry email address.
-3. Replace or confirm all project descriptions and screenshots before presenting them as public portfolio work.
-4. Add the final team names and profiles in `studio.html` when ready.
-5. Review the contact and privacy information for the business and markets served.
+1. Confirm the project descriptions and public portfolio screenshots.
+2. Add the final team names and profiles in `studio.html` when ready.
+3. Review the contact and privacy information for the business and markets served.
 
-The inquiry form opens a prefilled email draft in the visitor's email app. It does not send the email automatically.
+## Preview and hosting
 
-## Preview
-
-Open `index.html` in a browser. The project is plain HTML, CSS, and JavaScript and can be deployed on a static hosting service.
+This project uses HTML, CSS, JavaScript, and one PHP handler. The pages can be previewed by opening `index.html`; the inquiry form requires PHP hosting to send messages.
